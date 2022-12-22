@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+DEB_CFLAGS_MAINT_APPEND := -Wall
+DEB_CXXFLAGS_MAINT_APPEND := -Wall
+ifneq (,$(filter $(DEB_HOST_ARCH), i386))
+    DEB_CFLAGS_MAINT_APPEND += -ffloat-store
+    DEB_CXXFLAGS_MAINT_APPEND += -ffloat-store
+endif
+export DEB_CFLAGS_MAINT_APPEND
+export DEB_CXXFLAGS_MAINT_APPEND
+
+export DEB_BUILD_MAINT_OPTIONS := hardening=+all
+
+override_dh_auto_configure:
+	dh_auto_configure --verbose -- \
+		--enable-libplotter \
+		--enable-libxmi
+
+override_dh_auto_build:
+	cd pic2plot/ && rm -vf gram.cc gram.h* && make gram.cc && \
+		cp -a gram.hh gram.h
+	dh_auto_build --verbose
+
+%:
+	dh $@

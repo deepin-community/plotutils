@@ -1,0 +1,10 @@
+pic2plot/gram.cc
+pic2plot/gram.h*
+libxmi/config.guess
+libxmi/config.sub
+libxmi/install-sh
+libxmi/ltconfig
+libxmi/ltmain.sh
+libxmi/missing
+libxmi/mkinstalldirs
+libxmi/info/mdate-sh
